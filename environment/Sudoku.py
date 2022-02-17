@@ -41,7 +41,7 @@ class Sudoku:
             return " "
 
     def getSudokuFromText(self):
-        file = open("sudoku.txt", "r")
+        file = open("grille.txt", "r")
         line = file.readline()
         for y in range(9):
             for x in range(9):
