@@ -54,6 +54,14 @@ class Sudoku:
             for y in range(9):
                 if self.grid[x][y] == 0:
                     listVar.append((x,y))
+        return listVar
+    
+    def fillGrid(self, assignement):
+        for key in assignement:
+            x = int(key[1])
+            y = int(key[3])
+            self.grid[x][y]=assignement[key]
+        
 
     # def Random_sudoku(self, level):
     #     file = open("sudoku.txt", "w")

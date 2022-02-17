@@ -1,19 +1,11 @@
-
-
-
-
-from asyncio import constants
-from sqlalchemy import Constraint
-
-
 class Agent:
 
     def __init__(self, sudoku):
         self.sudoku = sudoku
         self.listVar = self.sudoku.getZeros()
 
-    def backtracking_search(self, csp):
-        return self.recursive_backtracking({}, csp)
+    def backtracking_search(self):
+        return self.recursive_backtracking({})
     
     def recursive_backtracking(self, assignment):
         if self.isComplete(assignment):
@@ -25,6 +17,8 @@ class Agent:
                     result = self.recursive_backtracking(assignment)
                     if result != {}:
                         return result
+                    else:
+                        assignment.remove[str(var)]
             return {}
     
     def isComplete(self, assignement):
