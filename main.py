@@ -1,5 +1,5 @@
-from environment.Sudoku import Sudoku
-from agent.csp import Agent
+from environment.cli_sudoku import Sudoku
+from agent.agent import Agent
 
 
 if __name__ == '__main__':
@@ -9,6 +9,7 @@ if __name__ == '__main__':
     print("---------AVANT---------")
     env.DisplayGrid()
     assignment = agent.backtracking_search()
+    print(assignment)
     env.fillGrid(assignment)
     print("---------APRES---------")
     env.DisplayGrid()
