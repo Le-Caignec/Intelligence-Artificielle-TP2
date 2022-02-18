@@ -12,13 +12,14 @@ class Agent:
             return assignment
         else:
             var = self.Select_variables(assignment)
-            for value in self.getDomain(var, assignment):
-                    assignment[str(var)] = value
-                    result = self.recursive_backtracking(assignment)
-                    if result != {}:
-                        return result
-                    else:
-                        assignment.remove[str(var)]
+            #value = une valeur possible pour case
+            for value in self.sudoku.getDomain(var, assignment):
+                assignment[str(var)] = value
+                result = self.recursive_backtracking(assignment)
+                if result != {}:
+                    return result
+                else:
+                    del assignment[str(var)]
             return {}
     
     def isComplete(self, assignement):
@@ -32,32 +33,3 @@ class Agent:
             if str(var) not in assignement:
                 return var
 
-    def getDomain(self, var, assignement):
-        ## la fct intéréssante
-        Constraint = []
-        x = var[0]
-        y = var[1]
-        numbers = [1,2,3,4,5,6,7,8,9]
-        Constraint = self.Merge(Constraint,self.sudoku.getConstraintX(x))
-        Constraint = self.Merge(Constraint,self.sudoku.getConstraintY(y))
-        Constraint = self.Merge(Constraint, self.getConstraint(assignement, x, y))
-        for value in Constraint:
-            if value in numbers:
-                numbers.remove(value)
-        return numbers
-
-    def Merge(self, L1, L2):
-        L=L1[:]
-        for val in L2:
-            if val not in L1:
-                L.append(val)
-        return L
-    
-    def getConstraint(self, assignement, x, y):
-        Constraint = []
-        for key in assignement:
-            if int(key[1]) == x:
-                Constraint.append(assignement[key])
-            elif int(key[3]) == y:
-                Constraint.append(assignement[key])
-        return Constraint
