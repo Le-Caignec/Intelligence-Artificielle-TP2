@@ -103,3 +103,11 @@ class SudokuController:
                 break
         self.cli_sudoku.grid[x][y].number = 0  
         return False
+    
+    def getWeightNumbers(self):
+        dict = {}
+        for i in range(9):
+            dict[str(i+1)] = 0
+        for var in self.getNonZeros():
+            dict[str(var)]+=1
+        return dict
