@@ -102,8 +102,8 @@ class SudokuController:
                             return True
                 break
         self.cli_sudoku.grid[x][y].number = 0  
-        return False
-    
+        return False  
+
     def getWeightNumbers(self):
         dict = {}
         for i in range(9):
