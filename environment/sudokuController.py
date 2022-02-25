@@ -109,5 +109,6 @@ class SudokuController:
         for i in range(9):
             dict[str(i+1)] = 0
         for var in self.getNonZeros():
-            dict[str(var)]+=1
+            case = self.cli_sudoku.grid[var[0]][var[1]]
+            dict[str(case.number)]+=1
         return dict
