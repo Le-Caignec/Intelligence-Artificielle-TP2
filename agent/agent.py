@@ -44,13 +44,13 @@ class Agent:
         domain_min = self.sudoku.getDomain(self.listVar[0], assignement)
         min = len(domain_min)
         min_var = self.listVar[0]
-        # for var in self.listVar:
-        #     domain = self.sudoku.getDomain(var, assignement)
-            # n= len(domain)
-            # if  n<min and str(var) not in assignement:
-            #     domain_min = domain
-                # min = n
-                # min_var = var
+        for var in self.listVar:
+            domain = self.sudoku.getDomain(var, assignement)
+            n= len(domain)
+            if  n<min and str(var) not in assignement:
+                domain_min = domain
+                min = n
+                min_var = var
         return min_var, domain_min
 
     def sortDomain(self, domain):
