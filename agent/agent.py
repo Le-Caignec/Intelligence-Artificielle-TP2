@@ -20,14 +20,17 @@ class Agent:
         else:
             var, domain = self.Select_variables(assignment)
             #value = une valeur possible pour case
+            domain = self.sortDomain(domain)
             for value in domain:
                 assignment[str(var)] = value
+                self.numbersWeighted[str(value)]+=1
                 self.listVar.remove(var)
                 result = self.recursive_backtracking(assignment)
                 if result != {}:
                     return result
                 else:
                     del assignment[str(var)]
+                    self.numbersWeighted[str(value)]-=1
                     self.listVar.append(var)
             return {}
     
@@ -41,12 +44,27 @@ class Agent:
         domain_min = self.sudoku.getDomain(self.listVar[0], assignement)
         min = len(domain_min)
         min_var = self.listVar[0]
-        for var in self.listVar:
-            domain = self.sudoku.getDomain(var, assignement)
-            n= len(domain)
-            if  n<min and str(var) not in assignement:
-                domain_min = domain
-                min = n
-                min_var = var
+        # for var in self.listVar:
+        #     domain = self.sudoku.getDomain(var, assignement)
+            # n= len(domain)
+            # if  n<min and str(var) not in assignement:
+            #     domain_min = domain
+                # min = n
+                # min_var = var
         return min_var, domain_min
 
+    def sortDomain(self, domain):
+        if domain == []:
+            return domain
+        new_domain = [domain[0]]
+        n = len(domain)
+        for i in range(1,n):
+            bool = True
+            for j in range(len(new_domain)):
+                if self.numbersWeighted[str(domain[i])]>self.numbersWeighted[str(new_domain[j])] and bool:
+                    new_domain=new_domain[:j]+[domain[i]]+new_domain[j:]
+                    bool = False
+            if bool:
+                new_domain.append(domain[i])
+                
+        return new_domain
