@@ -1,4 +1,8 @@
+from asyncio import constants
+from copyreg import constructor
 from random import randint, shuffle
+
+from numpy import square
 
 class SudokuController:
 
@@ -57,8 +61,26 @@ class SudokuController:
         for key in assignement:
             if int(key[1]) == x:
                 Constraint.append(assignement[key])
-            elif int(key[4]) == y:
+            elif int(key[4]) == y and assignement[key] not in Constraint:
                 Constraint.append(assignement[key])
+        SquareConstraint = self.getSquareConstraint(assignement, x, y)
+        for el in SquareConstraint:
+            if el not in Constraint:
+                Constraint.append(el)
+        return Constraint
+
+    def getSquareConstraint(self, assignement, x, y):
+        Constraint = []
+        xSquare=x//3
+        ySquare=y//3
+        for i in range(xSquare*3,xSquare*3+3):
+            for j in range(ySquare*3,ySquare*3+3):
+                if self.cli_sudoku.grid[i][j] != 0:
+                    Constraint.append(self.cli_sudoku.grid[i][j].number)
+        for key in assignement:
+            if int(key[1])//3 == xSquare:
+                if int(key[4])//3 == ySquare and assignement[key] not in Constraint:
+                    Constraint.append(assignement[key])
         return Constraint
 
     def withdrawSudoku(self, level):

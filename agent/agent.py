@@ -22,11 +22,13 @@ class Agent:
             #value = une valeur possible pour case
             for value in domain:
                 assignment[str(var)] = value
+                self.listVar.remove(var)
                 result = self.recursive_backtracking(assignment)
                 if result != {}:
                     return result
                 else:
                     del assignment[str(var)]
+                    self.listVar.append(var)
             return {}
     
     def isComplete(self, assignement):
