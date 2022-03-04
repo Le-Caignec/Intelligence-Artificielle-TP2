@@ -16,7 +16,7 @@ if __name__ == '__main__':
     sudoku_controller = SudokuController(cli_sudoku)
     getInitialSudoku(cli_sudoku, sudoku_controller, "grille")
     cli_sudoku.DisplayGrid()
-    sudoku_controller.withdrawSudoku(2)
+    # sudoku_controller.withdrawSudoku(99)
     agent = Agent(sudoku_controller)
     print("---------AVANT---------")
     cli_sudoku.DisplayGrid()
