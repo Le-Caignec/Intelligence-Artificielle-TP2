@@ -28,7 +28,8 @@ class CLI_Sudoku:
                     print(self.displayNumber(x_position, y_position) + " ",
                       end='')
             print("")
-
+    
+    # function that return the number of the corresponding case or " " if it is 0
     def displayNumber(self, x,y):
         num = self.grid[x][y].number
         if num !=0 :
@@ -36,8 +37,9 @@ class CLI_Sudoku:
         else:
             return " "
 
-    def getSudokuFromFile(self):
-        file = open("grille.txt", "r")
+    # this function read the corresponding file and extract the numbers from it to get the sudoku
+    def getSudokuFromFile(self, title):
+        file = open("{}.txt".format(title), "r")
         line = file.readline()
         for y in range(9):
             for x in range(9):

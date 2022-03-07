@@ -3,41 +3,51 @@ class Agent:
 
     def __init__(self, sudoku):
         self.sudoku = sudoku
-        # listVar est la liste des coordonées qui ne sont pas remplis
+        # listVar is the list of coordinates that are not in the sudoku nor in assignment
         self.listVar = self.sudoku.getZeros()
-        # numbersWeighted est un dictionnaire avec les nombres de 1 à 9.
-        # il permet de connaitre de fois un numéro est présent dans le sudoku
+        # numbersWeighted is a dictionnary with numbers from 1 to 9
+        # it contains the numbers of apparitions of those numbers
         self.numbersWeighted = self.sudoku.getWeightNumbers()
 
+    # this fucction start the recursive backtracking
     def backtracking_search(self):
         return self.recursive_backtracking({})
     
+    # this function is a CSP backtracking with LCV and MRV
     def recursive_backtracking(self, assignment):
-        if self.isComplete(assignment):
+        # if the sudoku is complete, it returns assignement
+        if self.isComplete():
             return assignment
         else:
+            # we get the most appropriate case with the domain of value it can take
             var, domain = self.Select_variables(assignment)
-            #value = une valeur possible pour case
+            # we sort the domain so that the most appropriate values are at the beggining of the list 
             domain = self.sortDomain(domain)
             for value in domain:
                 assignment[str(var)] = value
                 self.numbersWeighted[str(value)]+=1
                 self.listVar.remove(var)
                 result = self.recursive_backtracking(assignment)
+                # if result is not empty, the sudoku is complete
                 if result != {}:
                     return result
+                # otherwise, the value is not correct and we select the next one
+                # we update variables that depends on the value selected.
                 else:
                     del assignment[str(var)]
                     self.numbersWeighted[str(value)]-=1
                     self.listVar.append(var)
             return {}
     
-    def isComplete(self, assignement):
-        for var in self.listVar:
-            if str(var) not in assignement:
-                return False
-        return True
+    # this function check if listVar has variables
+    # if not the sudoku is complete
+    def isComplete(self):
+        if self.listVar != []:
+            return False
+        else:
+            return True
     
+    # 
     def Select_variables(self, assignement):
         domain_min = self.sudoku.getDomain(self.listVar[0], assignement)
         min = len(domain_min)

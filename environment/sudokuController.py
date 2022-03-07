@@ -101,26 +101,25 @@ class SudokuController:
                     listVar.append((x,y))
         return listVar
     
-    def FullSudokuRandom(self):
-        for i in range(0,81):
-            print(i)
-            x=i//9 
-            y=i%9
-            #find next empty cell
-            if self.cli_sudoku.grid[x][y].number == 0:
-                numbers = self.getDomain((x,y),{})
-                shuffle(numbers)
-                for number in numbers:
-                    self.cli_sudoku.grid[x][y].number = number
-                    if self.getZeros == []:
-                        return True
-                    else:
-                        if self.FullSudokuRandom():
-                            #if the grid is full
-                            return True
-                break
-        self.cli_sudoku.grid[x][y].number = 0  
-        return False  
+    # def FullSudokuRandom(self):
+    #     for i in range(0,81):
+    #         x=i//9
+    #         y=i%9
+    #         #find next empty cell
+    #         if self.cli_sudoku.grid[x][y].number == 0:
+        #         numbers = self.getDomain((x,y),{})
+        #         shuffle(numbers)
+        #         for number in numbers:
+        #             self.cli_sudoku.grid[x][y].number = number
+        #             if self.getZeros == []:
+        #                 return True
+        #             else:
+        #                 if self.FullSudokuRandom():
+        #                     #if the grid is full
+        #                     return True
+        #         break
+        # self.cli_sudoku.grid[x][y].number = 0  
+        # return False  
 
     def getWeightNumbers(self):
         dict = {}
@@ -130,3 +129,44 @@ class SudokuController:
             case = self.cli_sudoku.grid[var[0]][var[1]]
             dict[str(case.number)]+=1
         return dict
+
+    def setZeros(self):
+        for x in range(9):
+            for y in range(9):
+                if self.cli_sudoku.grid[x][y].number != 0:
+                    self.cli_sudoku.grid[x][y].number = 0
+
+    def FullSudokuRandom(self):
+        return self.recursive_random_backtracking({})
+    
+    def recursive_random_backtracking(self, assignment):
+        if self.isComplete(assignment):
+            return assignment
+        else:
+            listVar = self.getZerosAssignment(assignment)
+            var = listVar[0]
+            domain = self.getDomain(var, assignment)
+            shuffle(domain)
+            #value = une valeur possible pour case
+            for value in domain:
+                assignment[str(var)] = value
+                result = self.recursive_random_backtracking(assignment)
+                if result != {}:
+                    return result
+                else:
+                    del assignment[str(var)]
+            return {}
+    
+    def getZerosAssignment(self, assignment):
+            listVar = []
+            for x in range(9):
+                for y in range(9):
+                    if str((x,y)) not in assignment:
+                        listVar.append((x,y))
+            return listVar
+
+    def isComplete(self, assignement):
+        if len(assignement) < 81:
+            return False
+        else:
+            return True 
