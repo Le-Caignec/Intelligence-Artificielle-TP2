@@ -47,7 +47,7 @@ class Agent:
         else:
             return True
     
-    # 
+    # this function 
     def Select_variables(self, assignement):
         domain_min = self.sudoku.getDomain(self.listVar[0], assignement)
         min = len(domain_min)
