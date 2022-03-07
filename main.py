@@ -19,7 +19,7 @@ if __name__ == '__main__':
     print("- To generate a random grid press 1")
     print("- To generate your own grid enter there in the grid.txt file then type 2 (Warning: an empty box is represented by a 0)")
     choice = input('Enter your choice: ')
-    if choice == 1:
+    if choice == '1':
         Generate_Random_sudoku(sudoku_controller)
     else :
         Take_Sudoku_From_File("grid")
