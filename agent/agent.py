@@ -34,7 +34,7 @@ class Agent:
                 # we update variables that depends on the value selected.
                 else:
                     del assignment[str(var)]
-                    self.numbersWeighted[str(value)]-=1
+                    self.numbersWeighted[str(value)] -= 1
                     self.listVar.append(var)
             return {}
     
@@ -53,8 +53,8 @@ class Agent:
         min_var = self.listVar[0]
         for var in self.listVar:
             domain = self.sudoku.getDomain(var, assignement)
-            n= len(domain)
-            if  n<min and str(var) not in assignement:
+            n = len(domain)
+            if n < min and str(var) not in assignement:
                 domain_min = domain
                 min = n
                 min_var = var
@@ -65,11 +65,11 @@ class Agent:
             return domain
         new_domain = [domain[0]]
         n = len(domain)
-        for i in range(1,n):
+        for i in range(1, n):
             bool = True
             for j in range(len(new_domain)):
-                if self.numbersWeighted[str(domain[i])]>self.numbersWeighted[str(new_domain[j])] and bool:
-                    new_domain=new_domain[:j]+[domain[i]]+new_domain[j:]
+                if self.numbersWeighted[str(domain[i])] > self.numbersWeighted[str(new_domain[j])] and bool:
+                    new_domain = new_domain[:j]+[domain[i]]+new_domain[j:]
                     bool = False
             if bool:
                 new_domain.append(domain[i])
