@@ -10,7 +10,7 @@ class SudokuController:
             for x in range(9):
                 for y in range(9):
                     if self.cli_sudoku.grid[x][y].number == 0:
-                        listVar.append((x,y))
+                        listVar.append((x, y))
             return listVar
         
     def fillGrid(self, assignement):
@@ -19,14 +19,14 @@ class SudokuController:
             y = int(key[4])
             self.cli_sudoku.grid[x][y].number = assignement[key]
     
-    def getConstraintX(self,x):
+    def getConstraintX(self, x):
         L=[]
         for y in range(9):
             if self.cli_sudoku.grid[x][y].number != 0:
                 L.append(self.cli_sudoku.grid[x][y].number)
         return L
     
-    def getConstraintY(self,y):
+    def getConstraintY(self, y):
         L=[]
         for x in range(9):
             if self.cli_sudoku.grid[x][y].number != 0:
@@ -37,8 +37,8 @@ class SudokuController:
         ## la fct intéréssante
         x = var[0]
         y = var[1]
-        numbers = [1,2,3,4,5,6,7,8,9]
-        Constraint = self.Merge(self.getConstraintX(x),self.getConstraintY(y))
+        numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        Constraint = self.Merge(self.getConstraintX(x), self.getConstraintY(y))
         Constraint = self.Merge(Constraint, self.getConstraint(assignement, x, y))
         for value in Constraint:
             if value in numbers:
@@ -67,10 +67,10 @@ class SudokuController:
 
     def getSquareConstraint(self, assignement, x, y):
         Constraint = []
-        xSquare=x//3
-        ySquare=y//3
-        for i in range(xSquare*3,xSquare*3+3):
-            for j in range(ySquare*3,ySquare*3+3):
+        xSquare = x//3
+        ySquare = y//3
+        for i in range(xSquare*3, xSquare*3+3):
+            for j in range(ySquare*3, ySquare*3+3):
                 if self.cli_sudoku.grid[i][j] != 0:
                     Constraint.append(self.cli_sudoku.grid[i][j].number)
         for key in assignement:
@@ -82,7 +82,7 @@ class SudokuController:
     def withdrawSudoku(self, level):
         listValues = self.getNonZeros()
         if level < 1:
-            level =1
+            level = 1
         elif level > 6:
             level = 6
         num = 40 + 5*level
@@ -98,28 +98,8 @@ class SudokuController:
         for x in range(9):
             for y in range(9):
                 if self.cli_sudoku.grid[x][y].number != 0:
-                    listVar.append((x,y))
+                    listVar.append((x, y))
         return listVar
-    
-    # def FullSudokuRandom(self):
-    #     for i in range(0,81):
-    #         x=i//9
-    #         y=i%9
-    #         #find next empty cell
-    #         if self.cli_sudoku.grid[x][y].number == 0:
-        #         numbers = self.getDomain((x,y),{})
-        #         shuffle(numbers)
-        #         for number in numbers:
-        #             self.cli_sudoku.grid[x][y].number = number
-        #             if self.getZeros == []:
-        #                 return True
-        #             else:
-        #                 if self.FullSudokuRandom():
-        #                     #if the grid is full
-        #                     return True
-        #         break
-        # self.cli_sudoku.grid[x][y].number = 0  
-        # return False  
 
     def getWeightNumbers(self):
         dict = {}
@@ -127,7 +107,7 @@ class SudokuController:
             dict[str(i+1)] = 0
         for var in self.getNonZeros():
             case = self.cli_sudoku.grid[var[0]][var[1]]
-            dict[str(case.number)]+=1
+            dict[str(case.number)] += 1
         return dict
 
     def setZeros(self):
@@ -161,8 +141,8 @@ class SudokuController:
             listVar = []
             for x in range(9):
                 for y in range(9):
-                    if str((x,y)) not in assignment:
-                        listVar.append((x,y))
+                    if str((x, y)) not in assignment:
+                        listVar.append((x, y))
             return listVar
 
     def isComplete(self, assignement):

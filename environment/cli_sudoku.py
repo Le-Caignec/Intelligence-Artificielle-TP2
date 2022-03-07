@@ -14,19 +14,17 @@ class CLI_Sudoku:
     # Function that enable to display the actual grid
     def DisplayGrid(self):
         for y_position in range(9):
-            bool_y=True
+            bool_y = True
             for x_position in range(9):
-                bool_x=True
+                bool_x = True
                 if (y_position) % 3 == 0 and bool_y and y_position !=0:
                     print("---------------------")
-                    bool_y=False
-                if (x_position) % 3 == 0 and bool_x and x_position!=0:
-                    print("| " + self.displayNumber(x_position, y_position) + " ",
-                      end='')
+                    bool_y = False
+                if x_position % 3 == 0 and bool_x and x_position!=0:
+                    print("| " + self.displayNumber(x_position, y_position) + " ", end='')
                     bool_x=False
                 else:
-                    print(self.displayNumber(x_position, y_position) + " ",
-                      end='')
+                    print(self.displayNumber(x_position, y_position) + " ", end='')
             print("")
     
     # function that return the number of the corresponding case or " " if it is 0
