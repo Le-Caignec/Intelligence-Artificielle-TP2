@@ -15,9 +15,10 @@ def Take_Sudoku_From_File(title):
 if __name__ == '__main__':
     cli_sudoku = CLI_Sudoku()
     sudoku_controller = SudokuController(cli_sudoku)
-    print("---------GAME MODE--------")
-    print("- To generate a random grid press 1")
-    print("- To generate your own grid enter there in the grid.txt file then type 2 (Warning: an empty box is represented by a 0)")
+    print("-----------------------------GAME RULES-----------------------------")
+    print("   * To generate a random grid press 1")
+    print("   * To generate your own grid put it in the grid.txt file then press 2 (Warning: an empty box is represented by a 0)")
+    print('')
     choice = input('Enter your choice: ')
     if choice == '1':
         Generate_Random_sudoku(sudoku_controller)
