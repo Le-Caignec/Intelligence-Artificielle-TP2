@@ -1,5 +1,3 @@
-from asyncio import format_helpers
-from random import random,randint, shuffle
 from dataclasses import dataclass
 
 @dataclass
@@ -45,5 +43,4 @@ class CLI_Sudoku:
             for x in range(9):
                 self.grid[x][y].number = int(line[x])
             line = file.readline()
-    
     

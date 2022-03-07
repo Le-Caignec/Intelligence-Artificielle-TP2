@@ -1,8 +1,4 @@
-from asyncio import constants
-from copyreg import constructor
 from random import randint, shuffle
-
-from numpy import square
 
 class SudokuController:
 
