@@ -1,7 +1,6 @@
 from environment.cli_sudoku import CLI_Sudoku
 from agent.agent import Agent
 from environment.sudokuController import SudokuController
-import os
 
 def Generate_Random_sudoku(sudoku_controller):
     sudoku_controller.setZeros()
