@@ -24,7 +24,7 @@ class Agent:
             domain = self.sortDomain(domain)
             for value in domain:
                 assignment[str(var)] = value
-                self.numbersWeighted[str(value)]+=1
+                self.numbersWeighted[str(value)] += 1
                 self.listVar.remove(var)
                 result = self.recursive_backtracking(assignment)
                 # if result is not empty, the sudoku is complete
@@ -46,7 +46,9 @@ class Agent:
         else:
             return True
     
-    # this function 
+    # this function  enable to make MRV : sort the boxes in descending
+    # order of importance from the box with the lowest number of digits
+    # remaining to the box with le maximum number of digits remaining.
     def Select_variables(self, assignement):
         domain_min = self.sudoku.getDomain(self.listVar[0], assignement)
         min = len(domain_min)
@@ -60,6 +62,9 @@ class Agent:
                 min_var = var
         return min_var, domain_min
 
+    # this function enable to make LCV.Indeed, this function will propose
+    # the most appropriate digits possible for a box by
+    # promoting the digits which is the most present in the grid.
     def sortDomain(self, domain):
         if domain == []:
             return domain

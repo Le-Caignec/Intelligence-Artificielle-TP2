@@ -17,7 +17,7 @@ class CLI_Sudoku:
             bool_y = True
             for x_position in range(9):
                 bool_x = True
-                if (y_position) % 3 == 0 and bool_y and y_position !=0:
+                if y_position % 3 == 0 and bool_y and y_position !=0:
                     print("---------------------")
                     bool_y = False
                 if x_position % 3 == 0 and bool_x and x_position!=0:
@@ -28,9 +28,9 @@ class CLI_Sudoku:
             print("")
     
     # function that return the number of the corresponding case or " " if it is 0
-    def displayNumber(self, x,y):
+    def displayNumber(self, x, y):
         num = self.grid[x][y].number
-        if num !=0 :
+        if num != 0:
             return str(num)
         else:
             return " "
