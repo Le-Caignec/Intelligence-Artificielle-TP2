@@ -34,7 +34,6 @@ class SudokuController:
         return L
     
     def getDomain(self, var, assignement):
-        ## la fct intéréssante
         x = var[0]
         y = var[1]
         numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -51,7 +50,7 @@ class SudokuController:
             if val not in L1:
                 L.append(val)
         return L
-    
+
     def getConstraint(self, assignement, x, y):
         Constraint = []
         for key in assignement:
