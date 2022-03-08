@@ -5,6 +5,7 @@ class SudokuController:
     def __init__(self, cli_sudoku):
         self.cli_sudoku = cli_sudoku
 
+    # this function get the cases with 0 as number
     def getZeros(self):
             listVar = []
             for x in range(9):
@@ -12,13 +13,15 @@ class SudokuController:
                     if self.cli_sudoku.grid[x][y].number == 0:
                         listVar.append((x, y))
             return listVar
-        
+    
+    # this function fill the grid with the values in assignment
     def fillGrid(self, assignement):
         for key in assignement:
             x = int(key[1])
             y = int(key[4])
             self.cli_sudoku.grid[x][y].number = assignement[key]
     
+    # this function get the constraint from the cases in the column x
     def getConstraintX(self, x):
         L=[]
         for y in range(9):
@@ -26,6 +29,7 @@ class SudokuController:
                 L.append(self.cli_sudoku.grid[x][y].number)
         return L
     
+    # this function get the constraint from the cases in the lign y
     def getConstraintY(self, y):
         L=[]
         for x in range(9):
@@ -33,6 +37,7 @@ class SudokuController:
                 L.append(self.cli_sudoku.grid[x][y].number)
         return L
     
+    # this function get all the possible variables that can take the corresponding case
     def getDomain(self, var, assignement):
         x = var[0]
         y = var[1]
@@ -44,6 +49,7 @@ class SudokuController:
                 numbers.remove(value)
         return numbers
 
+    # a function that get all the values that are in L1 and in L2 without repeting them
     def Merge(self, L1, L2):
         L=L1[:]
         for val in L2:
@@ -51,6 +57,7 @@ class SudokuController:
                 L.append(val)
         return L
 
+    # get the constraint from assignement
     def getConstraint(self, assignement, x, y):
         Constraint = []
         for key in assignement:
@@ -64,6 +71,7 @@ class SudokuController:
                 Constraint.append(el)
         return Constraint
 
+    # get the constraint from the 3x3 square containing the corresponding case
     def getSquareConstraint(self, assignement, x, y):
         Constraint = []
         xSquare = x//3
@@ -78,6 +86,8 @@ class SudokuController:
                     Constraint.append(assignement[key])
         return Constraint
 
+    # this function is used to remove values from a full sudoku (when it is created randomly)
+    # the level is from 1 to 6 and the higher the level is, the more values are removed
     def withdrawSudoku(self, level):
         listValues = self.getNonZeros()
         if level < 1:
@@ -92,6 +102,7 @@ class SudokuController:
             self.cli_sudoku.grid[x][y].number = 0
             listValues.pop(i)
     
+    # get all the cases that has a number (different than 0)
     def getNonZeros(self):
         listVar = []
         for x in range(9):
@@ -100,6 +111,7 @@ class SudokuController:
                     listVar.append((x, y))
         return listVar
 
+    # get the numbers of apparitions of all the numbers from 1 to 9
     def getWeightNumbers(self):
         dict = {}
         for i in range(9):
@@ -109,15 +121,18 @@ class SudokuController:
             dict[str(case.number)] += 1
         return dict
 
+    # this function reset all the values of the sudoku to 0
     def setZeros(self):
         for x in range(9):
             for y in range(9):
                 if self.cli_sudoku.grid[x][y].number != 0:
                     self.cli_sudoku.grid[x][y].number = 0
 
+    # call the recursive function to get a random sudoku
     def FullSudokuRandom(self):
         return self.recursive_random_backtracking({})
     
+    # this function is a recursive backtracking that assign random values to generate a random sudoku
     def recursive_random_backtracking(self, assignment):
         if self.isComplete(assignment):
             return assignment
@@ -136,6 +151,7 @@ class SudokuController:
                     del assignment[str(var)]
             return {}
     
+    # get the cases that are not yet in assignement
     def getZerosAssignment(self, assignment):
             listVar = []
             for x in range(9):
@@ -144,6 +160,7 @@ class SudokuController:
                         listVar.append((x, y))
             return listVar
 
+    # check if all the cases are in assignement 
     def isComplete(self, assignement):
         if len(assignement) < 81:
             return False

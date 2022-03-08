@@ -24,12 +24,17 @@ if __name__ == '__main__':
     else :
         Take_Sudoku_From_File("grid")
     agent = Agent(sudoku_controller)
+    print(" ")
     print("---------BEFORE---------")
+    print(" ")
     cli_sudoku.DisplayGrid()
     assignment = agent.backtracking_search()
     if assignment == {}:
+        print(" ")
         print("The Sudoku is impossible, please try with another grid")
     else: 
         sudoku_controller.fillGrid(assignment)
+        print(" ")
         print("---------AFTER---------")
+        print(" ")
         cli_sudoku.DisplayGrid()
