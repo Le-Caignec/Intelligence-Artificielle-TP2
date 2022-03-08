@@ -6,7 +6,7 @@ def Generate_Random_sudoku(sudoku_controller):
     sudoku_controller.setZeros()
     assignment = sudoku_controller.FullSudokuRandom()
     sudoku_controller.fillGrid(assignment)
-    sudoku_controller.withdrawSudoku(99)
+    sudoku_controller.withdrawSudoku(2)
 
 def Take_Sudoku_From_File(title):
     cli_sudoku.getSudokuFromFile(title)
@@ -27,6 +27,9 @@ if __name__ == '__main__':
     print("---------BEFORE---------")
     cli_sudoku.DisplayGrid()
     assignment = agent.backtracking_search()
-    sudoku_controller.fillGrid(assignment)
-    print("---------AFTER---------")
-    cli_sudoku.DisplayGrid()
+    if assignment == {}:
+        print("The Sudoku is impossible, please try with another grid")
+    else: 
+        sudoku_controller.fillGrid(assignment)
+        print("---------AFTER---------")
+        cli_sudoku.DisplayGrid()
